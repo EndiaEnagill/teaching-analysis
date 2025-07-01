@@ -13,16 +13,16 @@ from tools.generate_coverage import *
 
 def analyze_content(audio_path, outline_path):
     # 4. 转录字幕
-    api = RequestApi(appid=os.getenv("appid"),
-                     secret_key=os.getenv("secret_key"),
-                     audio_path=audio_path
-                     )
-    result = api.get_result()
+    # api = RequestApi(appid=os.getenv("appid"),
+    #                  secret_key=os.getenv("secret_key"),
+    #                  audio_path=audio_path
+    #                  )
+    # result = api.get_result()
     
-    # 解析嵌套的 JSON 字符串
-    order_result = json.loads(result['content']['orderResult'])
-    print("Parsed orderResult:", order_result)
-    subtitles = convert_to_srt(order_result)
+    # # 解析嵌套的 JSON 字符串
+    # order_result = json.loads(result['content']['orderResult'])
+    # print("Parsed orderResult:", order_result)
+    subtitles = generate_subtitles(audio_path)
 
     print('字幕转录成功...')
     # 5. 生成视频图谱
