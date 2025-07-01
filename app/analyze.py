@@ -15,7 +15,7 @@ def analyze_content(audio_path, outline_path):
     # 4. 转录字幕
     api = RequestApi(appid=os.getenv("appid"),
                      secret_key=os.getenv("secret_key"),
-                     upload_file_path=audio_path
+                     audio_path=audio_path
                      )
     result = api.get_result()
     
