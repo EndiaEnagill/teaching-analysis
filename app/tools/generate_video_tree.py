@@ -69,15 +69,23 @@ def validate_video_tree(tree):
         return False
     if set(tree.keys()) != required_keys:
         return False
-    for child in tree.get("child", []):
-        if not validate_video_tree(child):
-            return False
-        return True
+    # for child in tree.get("child", []):
+    #     if not validate_video_tree(child):
+    #         return False
+    #     return True
     
 def generate_video_tree(subtitles, max_retries=5):
     for attempt in range(max_retries):
-        result = video_tree(subtitles)
-        if validate_video_tree(result):
-            return result
-        print(f"Attempt {attempt + 1} failed. Retrying...")
-    raise ValueError("Failed to generate a valid video tree after maximum retries.")
+        try:
+            result = video_tree(subtitles)
+            if result is None:
+                print(f"Attempt {attempt + 1} failed. Result is None. Retrying...")
+                continue
+            if validate_video_tree(result):
+                return result
+            else:
+                print(f"Attempt {attempt + 1} failed. Result does not meet the requirements. Retrying...")
+        except Exception as e:
+            print(f"Attempt {attempt + 1} failed with an error: {e}. Retrying...")
+    print(f"Failed to generate a valid video tree after {max_retries} retries.")
+    return {}
