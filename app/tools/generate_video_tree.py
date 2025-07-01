@@ -65,14 +65,9 @@ def validate_video_tree(tree):
     required_keys = {"id", "name", "type", "level", "time", "content", "child"}
     if tree is None:
         return False
-    if not isinstance(tree, dict):
-        return False
     if set(tree.keys()) != required_keys:
         return False
-    # for child in tree.get("child", []):
-    #     if not validate_video_tree(child):
-    #         return False
-    #     return True
+    return True
     
 def generate_video_tree(subtitles, max_retries=5):
     for attempt in range(max_retries):
